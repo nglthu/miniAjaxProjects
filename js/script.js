@@ -27,6 +27,21 @@ function loadData() {
 			};
 		}
 	});
+	
+	//newyork time
+	var nytimeURL='http://api.nytimes.com/svc/search/v2/articlesearch.json?q='+city+'&sort=newest&api-key=e7d9b2ccdfc3404b8c448422e8db6ed7';
+	$.getJSON(nytimeURL, function(data){
+		$nytHeaderElem.text("NewYork Times about "+city);
+		articles = data.response.docs;
+		for(var i=0; i<articles.length; i++){
+			var article = articles[i];
+			$nytHeaderElem.append('<li class="article"><a href="'+article.web_url+'">'+article.headline.main+'</a>'+'<p>'+article.snippet+'</p>'+'</li>')
+		}
+	});
+	
+	
+	
+	
 	return false;
 };
 $('#form-container').submit(loadData);
